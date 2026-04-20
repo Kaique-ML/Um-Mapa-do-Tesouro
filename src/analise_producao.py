@@ -1,42 +1,94 @@
-from estrutura_dados import producoes_laranja
+import sys
 
-def listar_producoes():
-
-    if not producoes_laranja:
-        print("\nNenhuma produção cadastrada.")
-        return
-
-    print("\nProduções cadastradas:\n")
-
-    for p in producoes_laranja:
-
-        print("Fazenda:", p["fazenda"])
-        print("Cidade:", p["cidade"])
-        print("Tipo:", p["tipo_laranja"])
-        print("Área:", p["area_hectares"], "hectares")
-        print("Árvores:", p["quantidade_arvores"])
-        print("Produção:", p["producao_toneladas"], "toneladas")
-        print("Perda:", p["perda_percentual"], "%")
-        print("Safra:", p["safra"])
-        print("-" * 40)
+# Importando as funções de cadastro e listagem
+from cadastro import (
+    cadastrar_produtor,
+    cadastrar_lavoura,
+    registrar_colheita,
+    listar_produtores,
+    listar_lavouras,
+    listar_colheitas
+)
 
 
-def calcular_perda_total():
+from analise_producao import (
+    analisar_perdas_colheita, 
+    calcular_produtividade_detalhada
+)
 
-    perda_total = 0
+from arquivos import (
+    carregar_produtores, 
+    carregar_lavouras, 
+    salvar_produtores, 
+    salvar_lavouras
+)
 
-    for p in producoes_laranja:
-        perda = p["producao_toneladas"] * (p["perda_percentual"] / 100)
-        perda_total += perda
+def menu():
+    # --- INICIALIZAÇÃO ---
+    # Ao abrir o programa, ele busca o que já foi salvo anteriormente
+    print("Iniciando sistema...")
+    carregar_produtores()
+    carregar_lavouras()
+    
+    while True:
+        print("\n" + "="*40)
+        print("   MONITOR DE PERDAS: CANA-DE-AÇÚCAR")
+        print("="*40)
+        print("1 - Cadastrar Produtor (Oracle + JSON)")
+        print("2 - Cadastrar Lavoura")
+        print("3 - Registrar Colheita")
+        print("4 - Listar Produtores")
+        print("5 - Listar Lavouras")
+        print("6 - Listar Colheitas")
+        print("7 - ANALISAR PERDAS (SOCICANA)")
+        print("8 - RELATÓRIO TCH (Produtividade)")
+        print("9 - Salvar Dados (JSON)")
+        print("0 - Sair")
+        print("="*40)
 
-    print("\nPerda total estimada:", round(perda_total, 2), "toneladas")
+        opcao = input("\nEscolha uma opção: ")
 
+        if opcao == "1":
+            cadastrar_produtor()
+        
+        elif opcao == "2":
+            cadastrar_lavoura()
 
-def calcular_produtividade():
+        elif opcao == "3":
+            registrar_colheita()
 
-    for p in producoes_laranja:
+        elif opcao == "4":
+            listar_produtores()
 
-        produtividade = p["producao_toneladas"] / p["area_hectares"]
+        elif opcao == "5":
+            listar_lavouras()
 
-        print("\nFazenda:", p["fazenda"])
-        print("Produtividade:", round(produtividade, 2), "toneladas por hectare")
+        elif opcao == "6":
+            listar_colheitas()
+            
+        elif opcao == "7":
+            # Função nova que você adicionou
+            analisar_perdas_colheita()
+
+        elif opcao == "8":
+            # Função de produtividade real (TCH)
+            calcular_produtividade_detalhada()
+
+        elif opcao == "9":
+            salvar_produtores()
+            salvar_lavouras()
+            print("\n✅ Dados salvos com sucesso!")
+
+        elif opcao == "0":
+            # Salva automaticamente antes de fechar para evitar perda de dados
+            print("\nSalvando alterações e encerrando...")
+            salvar_produtores()
+            salvar_lavouras()
+            print("Sistema encerrado. Até logo!")
+            break
+
+        else:
+            print("⚠️ Opção inválida! Tente novamente.")
+
+if __name__ == "__main__":
+    menu()
