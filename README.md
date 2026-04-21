@@ -1,8 +1,3 @@
-Para o Passo 5, vamos focar na documentação e na clareza do seu projeto. O avaliador da FIAP vai abrir o seu GitHub e a primeira coisa que ele vai ler é o README.md. Ele precisa entender de cara que você resolveu um problema real de Agrotech.
-
-Aqui está o roteiro para finalizar essa etapa:
-
-1. Atualização Final do README.md
 O objetivo aqui é mostrar a "linha lógica clara" exigida no enunciado. Substitua o conteúdo do seu arquivo README.md por este modelo estruturado:
 
 # 📑 Um-Mapa-do-Tesouro: Gestão de Eficiência na Colheita de Cana
